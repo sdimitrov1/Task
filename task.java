@@ -34,7 +34,6 @@ public class JiraService {
     @Autowired
     JiraClient jiraClient;
 
-    //<editor-fold desc="Api Business Calls">
     @Value("${GET_ISSUE_SUMMARY}")
     String apiCallIssueSummary;
     
@@ -83,7 +82,7 @@ public class JiraService {
 
 
 
-    //<editor-fold desc="Definitions : Jira concrete usage">
+
 static final List<String> ISSUE_FIELDS = Arrays.asList(
             "status", "creator", "reporter", "assignee", "description",
             "summary", "customfield", "customfield", "components"
@@ -205,7 +204,7 @@ public class JiraClient {
         jsonUtils = new JSONUtils( dateTimeFormat );
     }
 
-    //<editor-fold desc="Infra : Basic Get/Post Request support methods">
+
     public HttpResponse handleGetRequest(String apiMethodCallUrl) {
         try {
             OAuthParameters parameters = jiraOAuthClient.getParameters( JIRA_ACCESS_TOKEN, JIRA_SECRET_KEY, JIRA_CONSUMER_KEY, JIRA_PRIVATE_KEY );
@@ -241,14 +240,11 @@ public class JiraClient {
         HttpRequest request = requestFactory.buildPostRequest( jiraUrl, requestContent );
         return request.execute();
     }
-    //</editor-fold>
 
-    //<editor-fold desc="Advanced Get/Post methods">
-    //<editor-fold desc="Generic universal call/response">
     private HttpResponse executeGetAndReturnHttpResponse(@NonNull String apiMethodCallUrl) {
         return handleGetRequest( JIRA_ENDPOINT_URL + apiMethodCallUrl );
     }
-    //</editor-fold>
+
 
  
     public <T> T executeGet(Class<T> clazz, String apiMethodCallUrl) {
@@ -281,9 +277,7 @@ public class JiraClient {
             throw new RuntimeException( errMsg, e );
         }
     }
-    //</editor-fold>
 
-    //<editor-fold desc="POST">
     public HttpResponse executePostRequest(@NonNull String postOperationName, @NonNull GenericData contentGenericData) {
         String apiCallUrlPath = JIRA_ENDPOINT_URL + postOperationName;
 
@@ -318,6 +312,5 @@ public class JiraClient {
             throw new RuntimeException( errMsg, e );
         }
     }
-    //</editor-fold>
-    //</editor-fold>
+
 }
