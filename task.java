@@ -157,7 +157,7 @@ public JiraSingleResultIssueDto getIssueByJQl(String key) {
 
 
 
-
+//new file
 @Component
 public class JiraClient {
 
